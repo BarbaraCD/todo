@@ -1,14 +1,16 @@
-document.getElementById("formTask").addEventListener("submit", function(event){
-    event.preventDefault();
+const inputElement = document.querySelector(".newtask-input");
+const addTaskButton = document.querySelector('.newtask-button');
 
-    var tarefa = document.getElementById("task").value;
+const validateInput = () => inputElement.value.trim().length > 0;
 
-      var paragrafo = document.createElement("p"); // Cria um novo elemento <p>
-      paragrafo.textContent = tarefa;
+const handleAddTask = () => {
+  const inputIsValid = validateInput();
 
-      var container = document.getElementById("tarefasContainer");
-      container.appendChild(paragrafo); // Adiciona o parágrafo ao container
 
-      document.getElementById("task").value = "";
-    
-});
+  if (!inputIsValid){
+    return inputElement.classList.add("error");
+  }
+
+};
+
+addTaskButton.addEventListener("click", () => handleAddTask());
