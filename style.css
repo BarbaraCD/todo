@@ -1,18 +1,24 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Poppins, sans-serif;
+div {
+    display: block;
 }
 
-.container {
-    height: 100vh;
+*{
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
 }
 
 .title-container {
     background: #059669;
     height: 4rem;
     top: 0;
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+.container {
+    height: 100vh;
 }
 
 p {
@@ -25,4 +31,7 @@ p {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 }
+
+
+
 
