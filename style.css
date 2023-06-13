@@ -8,29 +8,34 @@
 body{
     height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .title-container {
     background: #059669;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 
 }
 
 .title-container p{
     display: block;
+    font-size: 28px;
     font-weight: 700;
     color: #fff;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
     border: 2px solid #fff;
     padding: 30px 40px;
-    width: 40%;
+    width: 100%;
     min-width: 500px;
 }
 
@@ -80,6 +85,7 @@ body{
 }
 
 .task-item{
+    border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
