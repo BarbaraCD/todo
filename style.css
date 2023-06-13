@@ -7,10 +7,24 @@
 
 body{
     height: 100vh;
-    background: linear-gradient(90deg, rgba(65, 184, 131, 1) 0%, rgba(0, 212, 255, 1) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.title-container {
+    background: #059669;
+
+}
+
+.title-container p{
+    display: block;
+    font-weight: 700;
+    color: #fff;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 .container {
@@ -49,7 +63,7 @@ body{
     height: 100%;
     font-size: 1rem;
     border: none;
-    background-color: #059669;
+    background-color: rgba(5,150,105,.7);
     color: #fff;
     padding: 12px;
     margin-left: 12px;
@@ -73,9 +87,15 @@ body{
     margin-top: 6px;
 }
 
+.task-item:hover{
+    background-color: rgba(49, 191, 134, 0.1);
+    
+
+}
+
 
 .task-item i{
-    background-color: #059669;
+    background-color: white;
     color: #fff;
     padding: 12px;
     border-radius: 5px;
@@ -83,6 +103,7 @@ body{
 
 .task-item i:hover {
     cursor: pointer;
+    background-color: rgba(49, 191, 134, 0.1);
 }
 
 /*utilities*/
