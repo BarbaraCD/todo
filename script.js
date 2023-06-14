@@ -24,12 +24,12 @@ const handleAddTask = () => {
 
     const taskContent = document.createElement("p");
     taskCount++;
-    taskContent.innerText = `${taskCount}. ${inputElement.value}`;
+    taskContent.innerText = `${taskCount}) ${inputElement.value}`;
 
     taskContent.addEventListener("click", () => handleClick(taskContent));
 
     const deleteItem = document.createElement("i");
-    deleteItem.classList.add("far");
+    deleteItem.classList.add("fa-regular");
     deleteItem.classList.add("fa-trash-alt");
 
     deleteItem.addEventListener("click", () => handleDeleteClick(taskItemContainer));
@@ -57,7 +57,7 @@ const handleDeleteClick = (taskItemContainer) => {
     const taskItems = taskContainer.querySelectorAll(".task-item");
     taskItems.forEach((taskItem, index) => {
         const taskContent = taskItem.querySelector("p");
-        taskContent.innerText = `${index + 1}. ${taskContent.innerText.substr(taskContent.innerText.indexOf(" ") + 1)}`;
+        taskContent.innerText = `${index + 1}) ${taskContent.innerText.substr(taskContent.innerText.indexOf(" ") + 1)}`;
     });
 
     updateLocalStorage();
@@ -97,7 +97,7 @@ const refreshTasksUsingLocalStorage = () => {
 
         taskCount++;
         const taskContent = document.createElement("p");
-        taskContent.innerText = `${taskCount}. ${task.description}`;
+        taskContent.innerText = (task.description);
         if (task.isCompleted) {
             taskContent.classList.add("completed");
         }
@@ -105,7 +105,7 @@ const refreshTasksUsingLocalStorage = () => {
         taskContent.addEventListener("click", () => handleClick(taskContent));
 
         const deleteItem = document.createElement("i");
-        deleteItem.classList.add("far");
+        deleteItem.classList.add("fa-regular");
         deleteItem.classList.add("fa-trash-alt");
 
         deleteItem.addEventListener("click", () => handleDeleteClick(taskItemContainer));
