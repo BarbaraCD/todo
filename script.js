@@ -4,84 +4,102 @@ const taskContainer = document.querySelector(".task-container");
 
 const validateInput = () => inputElement.value.trim().length > 0;
 let taskCount = 0;
+let isInputError = false;
 
 const handleKeyDown = (event) => {
   if (event.key === "Enter") {
-      handleAddTask();
+    event.preventDefault();
+    handleAddTask();
   }
 };
 
-
 const handleAddTask = () => {
-    const inputIsValid = validateInput();
+  const inputIsValid = validateInput();
 
-    if (!inputIsValid) {
-        return inputElement.classList.add("error");
-    }
+  if (!inputIsValid) {
+    inputElement.classList.add("error");
+    isInputError = true;
+    return;
+  }
 
-    const taskItemContainer = document.createElement("div");
-    taskItemContainer.classList.add("task-item");
+  if (isInputError) {
+    inputElement.classList.remove("error");
+    isInputError = false;
+  }
 
-    const taskContent = document.createElement("p");
-    taskCount++;
-    taskContent.innerText = `${taskCount}) ${inputElement.value}`;
+  const taskItemContainer = document.createElement("div");
+  taskItemContainer.classList.add("task-item");
 
-    taskContent.addEventListener("click", () => handleClick(taskContent));
+  const taskContent = document.createElement("p");
+  taskCount++;
+  taskContent.innerText = `${taskCount}) ${inputElement.value}`;
 
-    const deleteItem = document.createElement("i");
-    deleteItem.classList.add("fa-regular");
-    deleteItem.classList.add("fa-trash-alt");
+  taskContent.addEventListener("click", () => handleClick(taskContent));
 
-    deleteItem.addEventListener("click", () => handleDeleteClick(taskItemContainer));
+  const deleteItem = document.createElement("i");
+  deleteItem.classList.add("fa-regular");
+  deleteItem.classList.add("fa-trash-alt");
 
-    taskItemContainer.appendChild(taskContent);
-    taskItemContainer.appendChild(deleteItem);
+  deleteItem.addEventListener("click", () => handleDeleteClick(taskItemContainer));
 
-    taskContainer.appendChild(taskItemContainer);
+  taskItemContainer.appendChild(taskContent);
+  taskItemContainer.appendChild(deleteItem);
 
-    inputElement.value = "";
+  // Adiciona a nova tarefa no início do container
+  taskContainer.insertBefore(taskItemContainer, taskContainer.firstChild);
 
-    updateLocalStorage();
+  // Atualiza os números das tarefas
+  updateTaskNumbers();
+
+  inputElement.value = "";
+
+  updateLocalStorage();
 };
 
 const handleClick = (taskContent) => {
-    taskContent.classList.toggle("completed");
-    updateLocalStorage();
+  taskContent.classList.toggle("completed");
+  updateLocalStorage();
 };
 
 const handleDeleteClick = (taskItemContainer) => {
-    taskItemContainer.remove();
-    taskCount--;
+  taskItemContainer.remove();
+  taskCount--;
 
-    // Atualiza os números das tarefas restantes
-    const taskItems = taskContainer.querySelectorAll(".task-item");
-    taskItems.forEach((taskItem, index) => {
-        const taskContent = taskItem.querySelector("p");
-        taskContent.innerText = `${index + 1}) ${taskContent.innerText.substr(taskContent.innerText.indexOf(" ") + 1)}`;
-    });
+  // Atualiza os números das tarefas
+  updateTaskNumbers();
 
-    updateLocalStorage();
+  updateLocalStorage();
 };
 
 const handleInputChange = () => {
-    const inputIsValid = validateInput();
+  const inputIsValid = validateInput();
 
-    if (inputIsValid) {
-        inputElement.classList.remove("error");
-    }
+  if (inputIsValid && isInputError) {
+    inputElement.classList.remove("error");
+    isInputError = false;
+  }
+};
+
+const updateTaskNumbers = () => {
+  const taskItems = taskContainer.querySelectorAll(".task-item");
+
+  taskItems.forEach((taskItem, index) => {
+    const taskContent = taskItem.querySelector("p");
+    taskContent.innerText = `${index + 1}) ${taskContent.innerText.substr(taskContent.innerText.indexOf(" ") + 1)}`;
+  });
 };
 
 const updateLocalStorage = () => {
-    const tasks = Array.from(taskContainer.querySelectorAll(".task-item"));
+  const tasks = Array.from(taskContainer.querySelectorAll(".task-item"));
 
-    const localStorageTasks = tasks.map((task) => {
-        const taskContent = task.querySelector("p");
-        const isCompleted = taskContent.classList.contains("completed");
+  const localStorageTasks = tasks.map((task) => {
+    const taskContent = task.querySelector("p");
+    const isCompleted = taskContent.classList.contains("completed");
 
-        return { description: taskContent.innerText, isCompleted };
-    });
+    return { description: taskContent.innerText, isCompleted };
+  });
 
-    localStorage.setItem("tasks", JSON.stringify(localStorageTasks));
+  localStorage.setItem("tasks", JSON.stringify(localStorageTasks));
 };
 
 const refreshTasksUsingLocalStorage = () => {
